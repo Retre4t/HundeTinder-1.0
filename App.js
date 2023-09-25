@@ -1,9 +1,10 @@
-import React from 'react';
-import { AppRegistry } from 'react-native';
-import Navigation from './Navigation'; // Import your Navigation component
-
-const App = () => {
-  return <Navigation />;
-};
-
-AppRegistry.registerComponent('HundeTinder', () => App); // Replace 'HundeTinder' with your app's name
+import React from "react";
+import AppNavigator from "./NavigationBar";
+import { ThemeProvider } from "react-native-rapi-ui";
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppNavigator />
+    </ThemeProvider>
+  );
+}

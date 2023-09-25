@@ -1,6 +1,10 @@
 // AnimalCardScreen.js
 import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
+import { View } from 'react-native';
+import { Layout, Text } from 'react-native-rapi-ui';
+
+
 import data from '../database/data.js';
 import AnimalCard from './AnimalCard.js';
 import NoMoreAnimals from './NoMoreAnimals.js';
@@ -41,12 +45,14 @@ const AnimalCardScreen = ({ navigation }) => {
   const currentAnimal = animals[currentAnimalIndex];
 
   return (
+    <Layout>
     <AnimalCard
       currentAnimal={currentAnimal}
       swiped={swiped}
       leftSwipe={leftSwipe}
       rightSwipe={rightSwipe}
     />
+    </Layout>
   );
 };
 

@@ -1,46 +1,89 @@
-// Navigation.js
-import React from 'react';
-import  NavigationContainer  from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AnimalCardScreen from './views/AnimalCardScreen'; // Import your AnimalCardScreen component
-import ProfileScreen from './views/profile'; // Import your ProfileScreen component
-import IconButton from 'react-native-paper'; // Import IconButton from React Native Paper
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-const Tab = createBottomTabNavigator();
+import { themeColor, useTheme } from "react-native-rapi-ui";
+import TabBarIcon from "./components/TabBarIcon";
+import TabBarText from "./components/TabBarText";
 
-const NavigationBar = () => {
+import AnimalCardScreen from "./views/AnimalCardScreen";
+import signUpScreen from "./views/signUp";
+import About from "./views/About";
+import profileScreen from "./views/profile";
+
+const MainStack = createNativeStackNavigator();
+const Main = () => {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="AnimalCardScreen"
-        tabBarOptions={{
-          activeTintColor: '#007AFF', // Change the active tab color
-          inactiveTintColor: 'gray', // Change the inactive tab color
-        }}
-      >
-        <Tab.Screen
-          name="AnimalCardScreen"
-          component={AnimalCardScreen}
-          options={{
-            tabBarLabel: 'Animal Cards',
-            tabBarIcon: ({ color }) => (
-              <IconButton icon="cards" color={color} size={24} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            tabBarLabel: 'Profile',
-            tabBarIcon: ({ color }) => (
-              <IconButton icon="account" color={color} size={24} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <MainStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <MainStack.Screen name="MainTabs" component={MainTabs} />
+      <MainStack.Screen name="signUpScreen" component={signUpScreen} />
+    </MainStack.Navigator>
   );
 };
 
-export default NavigationBar;
+const Tabs = createBottomTabNavigator();
+const MainTabs = () => {
+  const { isDarkmode } = useTheme();
+  return (
+    <Tabs.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          borderTopColor: isDarkmode ? themeColor.dark100 : "#c0c0c0",
+          backgroundColor: isDarkmode ? themeColor.dark200 : "#ffffff",
+        },
+      }}
+    >
+      {/* these icons using Ionicons */}
+      <Tabs.Screen
+        name="AnimalCardScreen"
+        component={AnimalCardScreen}
+        options={{
+          tabBarLabel: ({ focused }) => (
+            <TabBarText focused={focused} title="AnimalCardScreen" />
+          ),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} icon={"md-AnimalCardScreen"} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profileScreen"
+        component={profileScreen}
+        options={{
+          tabBarLabel: ({ focused }) => (
+            <TabBarText focused={focused} title="profileScreen" />
+          ),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} icon={"person"} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="About"
+        component={About}
+        options={{
+          tabBarLabel: ({ focused }) => (
+            <TabBarText focused={focused} title="About" />
+          ),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} icon={"ios-information-circle"} />
+          ),
+        }}
+      />
+    </Tabs.Navigator>
+  );
+};
+
+export default () => {
+  return (
+    <NavigationContainer>
+      <Main />
+    </NavigationContainer>
+  );
+};

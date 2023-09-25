@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { Layout } from 'react-native-rapi-ui';
 
-const SignupScreen = ({ navigation }) => {
+const signUpScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
@@ -26,6 +27,7 @@ const SignupScreen = ({ navigation }) => {
     };
   
     return (
+      <Layout> 
       <View style={styles.container}>
         {/* Skip button in the top right corner */}
         <TouchableOpacity onPress={handleSkipPress} style={styles.skipButton}>
@@ -61,6 +63,7 @@ const SignupScreen = ({ navigation }) => {
   
         {/* Additional content can be placed here */}
       </View>
+      </Layout>
     );
   };
   
@@ -100,5 +103,5 @@ const SignupScreen = ({ navigation }) => {
     },
   });
   
-  export default SignupScreen;
+  export default signUpScreen;
   

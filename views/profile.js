@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { Layout} from 'react-native-rapi-ui';
 
-const ProfileScreen = () => {
+const profileScreen = () => {
   // Dummy user profile data
   const userProfile = {
     name: 'John Doe',
@@ -12,6 +13,7 @@ const ProfileScreen = () => {
   };
 
   return (
+    <Layout>
     <View style={styles.container}>
       <View style={styles.profileInfo}>
         <Image
@@ -24,6 +26,7 @@ const ProfileScreen = () => {
         <Text style={styles.bio}>{userProfile.bio}</Text>
       </View>
     </View>
+    </Layout>
   );
 };
 
@@ -67,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default profileScreen;

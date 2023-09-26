@@ -10,8 +10,11 @@ import TabBarText from "./components/TabBarText";
 import AnimalCardScreen from "./views/AnimalCardScreen";
 import signUpScreen from "./views/signUp";
 import About from "./views/About";
-import profileScreen from "./views/profile";
+import profileScreen from "./views/Profile";
+import Signup from "./views/signUp";
 
+
+// Opret en staknavigation til hovedskærmen.
 const MainStack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -26,6 +29,7 @@ const Main = () => {
   );
 };
 
+// Opret en bundfanenavigation til hovedskærmen.
 const Tabs = createBottomTabNavigator();
 const MainTabs = () => {
   const { isDarkmode } = useTheme();
@@ -39,7 +43,7 @@ const MainTabs = () => {
         },
       }}
     >
-      {/* these icons using Ionicons */}
+      {/* Disse skærme er faner i bundnavigationen. */}
       <Tabs.Screen
         name="AnimalCardScreen"
         component={AnimalCardScreen}
@@ -70,6 +74,18 @@ const MainTabs = () => {
         options={{
           tabBarLabel: ({ focused }) => (
             <TabBarText focused={focused} title="About" />
+          ),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon focused={focused} icon={"ios-information-circle"} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="Sign Up"
+        component={Signup}
+        options={{
+          tabBarLabel: ({ focused }) => (
+            <TabBarText focused={focused} title="Sign up" />
           ),
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} icon={"ios-information-circle"} />

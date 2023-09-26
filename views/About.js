@@ -12,7 +12,7 @@ export default function ({ navigation }) {
 					justifyContent: 'center',
 				}}
 			>
-				<Text>This is the About tab</Text>
+				<Text>Hunde tinder kan benyttes til mange forskellige formål.</Text>
 			</View>
 		</Layout>
 	);

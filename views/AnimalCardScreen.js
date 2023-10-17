@@ -1,7 +1,6 @@
 // Importering af nødvendige biblioteker og komponenter
 import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import { View } from 'react-native';
 import { Layout, Text } from 'react-native-rapi-ui';
 
 // Importering af dyredata og komponenter

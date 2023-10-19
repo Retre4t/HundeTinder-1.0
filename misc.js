@@ -10,15 +10,12 @@ import TabBarIcon from "./components/TabBarIcon";
 import TabBarText from "./components/TabBarText";
 
 import AnimalCardScreen from "./views/AnimalCardScreen";
-import SignUpScreen from "./views/SignUp";
-import SignInScreen from "./views/SignIn";
-
+import signUpScreen from "./views/SignUp";
 import About from "./views/About";
 import profileScreen from "./views/Profile";
 
 // Opretter en stacknavigation til hovedskærmen.
 const MainStack = createNativeStackNavigator();
-
 const Main = () => {
   return (
     <MainStack.Navigator
@@ -26,14 +23,13 @@ const Main = () => {
         headerShown: false,
       }}
     >
-      <MainStack.Screen name="SignInScreen" component={SignInScreen} />
       <MainStack.Screen name="MainTabs" component={MainTabs} />
-      <MainStack.Screen name="SignUpScreen" component={SignUpScreen} />
+      <MainStack.Screen name="signUpScreen" component={signUpScreen} />
       <MainStack.Screen name="AnimalCards" component={AnimalCardScreen} />
+
     </MainStack.Navigator>
   );
 };
-
 
 // Opret en bundfanenavigation til hovedskærmen.
 const Tabs = createBottomTabNavigator();
@@ -93,9 +89,7 @@ const MainTabs = () => {
 export default () => {
   return (
     <NavigationContainer>
-      
       <Main />
     </NavigationContainer>
   );
 };
-

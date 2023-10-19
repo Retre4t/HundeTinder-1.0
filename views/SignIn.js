@@ -10,6 +10,11 @@ const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+
+const navigateToSignUp = () => {
+  navigation.navigate('SignUpScreen');
+};
+
   const handleSignIn = () => {
     if (email && password) {
       // Sign in the user using Firebase Authentication
@@ -21,7 +26,7 @@ const SignInScreen = ({ navigation }) => {
           console.log('User signed in:', user);
 
           // Navigate to the main app screen on successful sign-in
-          navigation.navigate('MainApp');
+          navigation.navigate('MainTabs');
         })
         .catch((error) => {
           // Handle authentication errors
@@ -51,6 +56,8 @@ const SignInScreen = ({ navigation }) => {
           onChangeText={setPassword}
         />
         <Button title="Sign In" onPress={handleSignIn} />
+        <Button title="Sign Up" onPress={navigateToSignUp} />
+
       </View>
     </Layout>
   );

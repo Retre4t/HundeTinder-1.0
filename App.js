@@ -6,7 +6,9 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import SignInScreen from './views/Front'; // Import your sign-in screen component
+import SignInScreen from './views/SignIn'; // Import your sign-in screen component
+import AnimalCard from './views/AnimalCardScreen'; // Import your sign-in screen component
+import HomeScreen from './views/HomeScreen'; // Import your sign-in screen component
 
 
 const firebaseConfig = {
@@ -24,15 +26,14 @@ firebase.initializeApp(firebaseConfig);
 
 const Stack = createStackNavigator();
 
+// Dette er din hovedapp-komponent.
 export default function App() {
   return (
+    // Jeg indpakker hele appen i ThemeProvider fra "react-native-rapi-ui".
     <ThemeProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="SignIn">
-          <Stack.Screen name="SignIn" component={SignInScreen} />
-          <Stack.Screen name="MainApp" component={AppNavigator} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      {/* AppNavigator er ansvarlig for navigationen i appen. */}
+      <AppNavigator />
     </ThemeProvider>
   );
 }
+

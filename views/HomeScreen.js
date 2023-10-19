@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import AnimalCard from './AnimalCard';
-import signUp from './signUp';
+import signUp from './SignUp';
 
 import { openDatabaseAndCreateTable, fetchAnimals } from '../database/data';
 

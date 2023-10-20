@@ -1,34 +1,114 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import { Layout} from 'react-native-rapi-ui';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Image, TextInput, Button, StyleSheet } from 'react-native';
+import { Layout } from 'react-native-rapi-ui';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
-const profileScreen = () => {
-  // Dummy user profile data
-  const userProfile = {
-    name: 'John Doe',
-    email: 'johndoe@example.com',
-    age: 24,
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida magna non ex blandit, in euismod erat convallis.',
-    picture: 'https://www.akc.org/wp-content/uploads/2017/11/Whippet-puppy.jpg'
+const ProfileScreen = () => {
+  // Initialize user profile data in state
+  const [userProfile, setUserProfile] = useState({
+    name: '',
+    email: '',
+    age: '',
+    bio: '',
+    picture: '',
+  });
+
+  const [isEditing, setIsEditing] = useState(false);
+
+  // Fetch user profile data when the component mounts
+  useEffect(() => {
+    const user = firebase.auth().currentUser;
+    if (user) {
+      const userDoc = firebase.firestore().collection('users').doc(user.uid);
+      userDoc.get().then((userData) => {
+        if (userData.exists) {
+          setUserProfile(userData.data());
+        }
+      });
+    }
+  }, []);
+
+  const saveProfileChanges = async () => {
+    const user = firebase.auth().currentUser;
+    if (user) {
+      const userDoc = firebase.firestore().collection('users').doc(user.uid);
+      await userDoc.set(userProfile, { merge: true });
+      setIsEditing(false);
+    }
   };
 
   return (
     <Layout>
-    <View style={styles.container}>
-      <View style={styles.profileInfo}>
-        <Image
-          source={{ uri: userProfile.picture }}
-          style={styles.profileImage}
-        />
-        <Text style={styles.name}>{userProfile.name}</Text>
-        <Text style={styles.email}>{userProfile.email}</Text>
-        <Text style={styles.age}>Age: {userProfile.age}</Text>
-        <Text style={styles.bio}>{userProfile.bio}</Text>
+      <View style={styles.container}>
+        <View style={styles.profileInfo}>
+          <Image source={{ uri: userProfile.picture }} style={styles.profileImage} />
+
+          {isEditing ? (
+            <>
+              <TextInput
+                placeholder="Name"
+                value={userProfile.name}
+                onChangeText={(text) => setUserProfile({ ...userProfile, name: text })}
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Email"
+                value={userProfile.email}
+                onChangeText={(text) => setUserProfile({ ...userProfile, email: text })}
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Age"
+                value={userProfile.age}
+                onChangeText={(text) => setUserProfile({ ...userProfile, age: text })}
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Bio"
+                value={userProfile.bio}
+                onChangeText={(text) => setUserProfile({ ...userProfile, bio: text })}
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Picture URL"
+                value={userProfile.imgURL}
+                onChangeText={(text) => setUserProfile({ ...userProfile, imgURl: text })}
+                style={styles.input}
+              />
+               <TextInput
+                placeholder="Race"
+                value={userProfile.Race}
+                onChangeText={(text) => setUserProfile({ ...userProfile, Race: text })}
+                style={styles.input}
+              />
+            </>
+          ) : (
+            <>
+              <Text style={styles.name}>{userProfile.name}</Text>
+              <Text style={styles.email}>{userProfile.email}</Text>
+              <Text style={styles.age}>Age: {userProfile.age}</Text>
+              <Text style={styles.bio}>{userProfile.bio}</Text>
+              <Text style={styles.imgURl}>{userProfile.imgURL}</Text>
+              <Text style={styles.Race}>{userProfile.Race}</Text>
+            </>
+          )}
+
+          {isEditing && (
+            <Button title="Save" onPress={saveProfileChanges} style={styles.saveButton} />
+          )}
+
+          <Button
+            title={isEditing ? 'Cancel' : 'Edit'}
+            onPress={() => setIsEditing(!isEditing)}
+          />
+        </View>
       </View>
-    </View>
     </Layout>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -68,6 +148,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
   },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingLeft: 8,
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  saveButton: {
+    backgroundColor: 'orange', // Button background color
+    padding: 10,
+    borderRadius: 5, // Rounded corners
+  },
 });
 
-export default profileScreen;
+export default ProfileScreen;

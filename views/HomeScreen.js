@@ -21,18 +21,13 @@ const HomeScreen = () => {
   }, []);
 
   const swiped = (direction, category) => {
-    // Handle swipe logic and update state here
-    // ...
-
-    // Move to the next animal
+    
     setCurrentAnimalIndex(currentAnimalIndex + 1);
   };
 
-  // ...
-
   return (
     <View style={styles.container}>
-      {/* Render AnimalCard component */}
+      {}
       {currentAnimalIndex < animals.length && (
         <AnimalCard
           animal={animals[currentAnimalIndex]}
@@ -40,7 +35,7 @@ const HomeScreen = () => {
         />
         
       )}
-      {/* Render buttons and other UI elements */}
+      {/* ... */}
       <Tab.Navigator>
       <Tab.Screen name="Find a match" component={AnimalCard} />
     </Tab.Navigator>

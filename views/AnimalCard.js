@@ -3,8 +3,6 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'; // Import TouchableOpacity here
 import TinderCard from 'react-tinder-card';
 
-import signUp from './signUp';
-
 
 const AnimalCard = ({ currentAnimal, swiped, leftSwipe, rightSwipe }) => {
   return (
@@ -29,6 +27,7 @@ const AnimalCard = ({ currentAnimal, swiped, leftSwipe, rightSwipe }) => {
               source={{ uri: currentAnimal.imgURL }}
               style={{ width: 200, height: 200 }}
             />
+            
             <Text>{currentAnimal.name}</Text>
           </View>
         </TinderCard>
@@ -37,6 +36,7 @@ const AnimalCard = ({ currentAnimal, swiped, leftSwipe, rightSwipe }) => {
         <TouchableOpacity style={styles.noButton} onPress={leftSwipe}>
           <Text style={styles.buttonText}>No</Text>
         </TouchableOpacity>
+        
         <TouchableOpacity style={styles.yesButton} onPress={rightSwipe}>
           <Text style={styles.buttonText}>Yes</Text>
         </TouchableOpacity>

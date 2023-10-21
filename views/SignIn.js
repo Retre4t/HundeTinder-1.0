@@ -17,19 +17,15 @@ const navigateToSignUp = () => {
 
   const handleSignIn = () => {
     if (email && password) {
-      // Sign in the user using Firebase Authentication
       firebase.auth()
         .signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-          // Successfully signed in, userCredential.user contains user information
           const user = userCredential.user;
           console.log('User signed in:', user);
 
-          // Navigate to the main app screen on successful sign-in
           navigation.navigate('MainTabs');
         })
         .catch((error) => {
-          // Handle authentication errors
           console.error('Error signing in:', error);
           alert('Sign-in failed. Please check your email and password.');
         });

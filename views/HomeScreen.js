@@ -1,4 +1,3 @@
-// screens/HomeScreen.js
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -50,7 +49,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // ... other styles
 });
 
 export default HomeScreen;

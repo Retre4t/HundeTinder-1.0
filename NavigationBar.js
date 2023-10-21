@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -12,6 +10,9 @@ import TabBarText from "./components/TabBarText";
 import AnimalCardScreen from "./views/AnimalCardScreen";
 import SignUpScreen from "./views/SignUp";
 import SignInScreen from "./views/SignIn";
+import CategorySelect from "./views/CategorySelect";
+
+
 
 import About from "./views/About";
 import profileScreen from "./views/Profile";
@@ -27,6 +28,8 @@ const Main = () => {
       }}
     >
       <MainStack.Screen name="SignInScreen" component={SignInScreen} />
+      <MainStack.Screen name="CategorySelect" component={CategorySelect} />
+
       <MainStack.Screen name="MainTabs" component={MainTabs} />
       <MainStack.Screen name="SignUpScreen" component={SignUpScreen} />
       <MainStack.Screen name="AnimalCards" component={AnimalCardScreen} />

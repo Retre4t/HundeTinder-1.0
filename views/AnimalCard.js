@@ -1,6 +1,5 @@
-// AnimalCardView.js
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'; // Import TouchableOpacity here
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'; 
 import TinderCard from 'react-tinder-card';
 
 
@@ -36,7 +35,7 @@ const AnimalCard = ({ currentAnimal, swiped, leftSwipe, rightSwipe }) => {
         <TouchableOpacity style={styles.noButton} onPress={leftSwipe}>
           <Text style={styles.buttonText}>No</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.yesButton} onPress={rightSwipe}>
           <Text style={styles.buttonText}>Yes</Text>
         </TouchableOpacity>

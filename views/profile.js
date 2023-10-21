@@ -6,7 +6,6 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
 const ProfileScreen = () => {
-  // Initialize user profile data in state
   const [userProfile, setUserProfile] = useState({
     name: '',
     email: '',
@@ -17,7 +16,6 @@ const ProfileScreen = () => {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  // Fetch user profile data when the component mounts
   useEffect(() => {
     const user = firebase.auth().currentUser;
     if (user) {
@@ -115,19 +113,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f5f5f5', // Background color
+    backgroundColor: '#f5f5f5', 
   },
   profileInfo: {
     alignItems: 'center',
     padding: 16,
-    backgroundColor: 'white', // Profile info background color
+    backgroundColor: 'white', 
     borderRadius: 10,
-    elevation: 4, // Shadow
+    elevation: 4, 
   },
   profileImage: {
     width: 150,
     height: 150,
-    borderRadius: 75, // Make it a circle
+    borderRadius: 75, 
     marginBottom: 16,
   },
   name: {
@@ -158,9 +156,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   saveButton: {
-    backgroundColor: 'orange', // Button background color
+    backgroundColor: 'orange', 
     padding: 10,
-    borderRadius: 5, // Rounded corners
+    borderRadius: 5, 
   },
 });
 

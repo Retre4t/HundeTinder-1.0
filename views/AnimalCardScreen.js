@@ -1,18 +1,23 @@
+
+
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
-import { Layout, Text } from 'react-native-rapi-ui';
-import firebase from 'firebase/compat/app'; // Import Firebase
+import { StyleSheet, View } from 'react-native';
+import { Layout, Text, Button } from 'react-native-rapi-ui';
+import firebase from 'firebase/compat/app';
 import NoMoreAnimals from '../views/NoMoreAnimals';
 import AnimalCard from '../views/AnimalCard';
+import { useNavigation } from '@react-navigation/native'; 
 
-const AnimalCardScreen = ({ navigation }) => {
+const AnimalCardScreen = () => {
   const [animals, setAnimals] = useState([]);
   const [currentAnimalIndex, setCurrentAnimalIndex] = useState(0);
   const [userLike, setUserLike] = useState([]);
   const [userDisLike, setUserDisLike] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('All'); 
+
+  const navigation = useNavigation(); 
 
   useEffect(() => {
-    // Initialize Firebase (if not already done)
     if (!firebase.apps.length) {
       const firebaseConfig = {
         apiKey: "AIzaSyDqK3I6CeAIQydAhCjjWqbxD26pY5usAO8",
@@ -22,21 +27,24 @@ const AnimalCardScreen = ({ navigation }) => {
         messagingSenderId: "503193003653",
         appId: "1:503193003653:web:7cf982e2bc482949996bec"
       };
-      firebase.initializeApp(firebaseConfig);
+      
     }
 
-    // Fetch animals from Firebase Firestore
     const db = firebase.firestore();
-    db.collection('users')
-      .get()
-      .then((querySnapshot) => {
-        const animalData = [];
-        querySnapshot.forEach((doc) => {
-          animalData.push({ id: doc.id, ...doc.data() });
-        });
-        setAnimals(animalData);
+    let query = db.collection('users');
+
+    if (selectedCategory !== 'All') {
+      query = query.where('category', '==', selectedCategory);
+    }
+
+    query.get().then((querySnapshot) => {
+      const animalData = [];
+      querySnapshot.forEach((doc) => {
+        animalData.push({ id: doc.id, ...doc.data() });
       });
-  }, []);
+      setAnimals(animalData);
+    });
+  }, [selectedCategory]);
 
   function swiped(direction, category) {
     if (direction === 'right') setUserLike([...userLike, category]);
@@ -59,6 +67,13 @@ const AnimalCardScreen = ({ navigation }) => {
 
   const currentAnimal = animals[currentAnimalIndex];
 
+  const openCategorySelect = () => {
+    navigation.navigate('CategorySelect', {
+      selectedCategory,
+      setCategory: setSelectedCategory,
+    });
+  };
+
   return (
     <Layout>
       <AnimalCard
@@ -67,6 +82,9 @@ const AnimalCardScreen = ({ navigation }) => {
         leftSwipe={leftSwipe}
         rightSwipe={rightSwipe}
       />
+      <View style={styles.settingsButton}>
+        <Button text="Settings" onPress={openCategorySelect} />
+      </View>
     </Layout>
   );
 };
@@ -76,6 +94,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  settingsButton: {
+    position: 'absolute',
+    bottom: 16,
+    right: 16,
   },
 });
 

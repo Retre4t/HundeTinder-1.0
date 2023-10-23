@@ -29,7 +29,6 @@ const Main = () => {
     >
       <MainStack.Screen name="SignInScreen" component={SignInScreen} />
       <MainStack.Screen name="CategorySelect" component={CategorySelect} />
-
       <MainStack.Screen name="MainTabs" component={MainTabs} />
       <MainStack.Screen name="SignUpScreen" component={SignUpScreen} />
       <MainStack.Screen name="AnimalCards" component={AnimalCardScreen} />

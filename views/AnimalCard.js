@@ -2,12 +2,14 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'; 
 import TinderCard from 'react-tinder-card';
 
-
+// Komponenten animalcard modtager data og funktioner som props.
 const AnimalCard = ({ currentAnimal, swiped, leftSwipe, rightSwipe }) => {
   return (
     <View style={styles.container}>
       <View style={styles.cardContainer}>
         <Text>Tinder Cards</Text>
+
+        {/* Tindercard komponentet bruges til at lave swipe-funktionen. */}
         <TinderCard
           key={currentAnimal.name}
           onSwipe={(direction) => swiped(direction, currentAnimal.category)}
@@ -22,16 +24,18 @@ const AnimalCard = ({ currentAnimal, swiped, leftSwipe, rightSwipe }) => {
               alignItems: 'center',
             }}
           >
+            {/* Viser et billede fra et URL og dyrets navn. */}
             <Image
               source={{ uri: currentAnimal.imgURL }}
               style={{ width: 200, height: 200 }}
             />
-            
             <Text>{currentAnimal.name}</Text>
           </View>
         </TinderCard>
       </View>
+
       <View style={styles.buttonContainer}>
+        {/* To knapper til at markere "No" og "Yes" for dyret. */}
         <TouchableOpacity style={styles.noButton} onPress={leftSwipe}>
           <Text style={styles.buttonText}>No</Text>
         </TouchableOpacity>
@@ -39,14 +43,12 @@ const AnimalCard = ({ currentAnimal, swiped, leftSwipe, rightSwipe }) => {
         <TouchableOpacity style={styles.yesButton} onPress={rightSwipe}>
           <Text style={styles.buttonText}>Yes</Text>
         </TouchableOpacity>
-        
       </View>
     </View>
   );
 };
 
-//Laver et stylesheet som skal afgøre de grafiske elementer af AnimalCard viewet. Her
-// beskriver jeg containerne som indeholder de forskellige elementer skal placeres på telefonskærmen.
+// Laver et stylesheet, der beskriver layout og stil for animalcard komponentet.
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -63,6 +65,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // Stilarter for kortet og billede af dyret.
   card: {
     width: '100%',
     height: '80%',
@@ -90,6 +93,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 20,
   },
+  // Stilarter for "No" og "Yes" knapper.
   noButton: {
     backgroundColor: 'red',
     padding: 16,
@@ -108,7 +112,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
-
 });
 
 export default AnimalCard;

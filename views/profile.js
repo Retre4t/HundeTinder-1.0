@@ -6,16 +6,19 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
 const ProfileScreen = () => {
+  // Opretter en tilstand til brugerens profiloplysninger og redigeringstilstand
   const [userProfile, setUserProfile] = useState({
     name: '',
     email: '',
     age: '',
     bio: '',
     picture: '',
+    Race: '', 
   });
 
   const [isEditing, setIsEditing] = useState(false);
 
+  // Bruger useEffect til at hente brugerprofiloplysninger fra Firestore-databasen
   useEffect(() => {
     const user = firebase.auth().currentUser;
     if (user) {
@@ -28,6 +31,7 @@ const ProfileScreen = () => {
     }
   }, []);
 
+  // Gemmer ændringer i brugerprofilen
   const saveProfileChanges = async () => {
     const user = firebase.auth().currentUser;
     if (user) {
@@ -43,7 +47,7 @@ const ProfileScreen = () => {
         <View style={styles.profileInfo}>
           <Image source={{ uri: userProfile.picture }} style={styles.profileImage} />
 
-          {isEditing ? (
+          {isEditing ? ( // Vis redigeringsfeltene, hvis isEditing er sand
             <>
               <TextInput
                 placeholder="Name"
@@ -72,24 +76,25 @@ const ProfileScreen = () => {
               <TextInput
                 placeholder="Picture URL"
                 value={userProfile.imgURL}
-                onChangeText={(text) => setUserProfile({ ...userProfile, imgURl: text })}
+                onChangeText={(text) => setUserProfile({ ...userProfile, imgURL: text })} 
                 style={styles.input}
               />
-               <TextInput
+              <TextInput
                 placeholder="Race"
                 value={userProfile.Race}
-                onChangeText={(text) => setUserProfile({ ...userProfile, Race: text })}
+                onChangeText={(text) => setUserProfile({ ...userProfile, Race: text })} 
                 style={styles.input}
               />
             </>
           ) : (
             <>
+              {/* Vis brugeroplysninger, hvis isEditing er falsk */}
               <Text style={styles.name}>{userProfile.name}</Text>
               <Text style={styles.email}>{userProfile.email}</Text>
               <Text style={styles.age}>Age: {userProfile.age}</Text>
               <Text style={styles.bio}>{userProfile.bio}</Text>
-              <Text style={styles.imgURl}>{userProfile.imgURL}</Text>
-              <Text style={styles.Race}>{userProfile.Race}</Text>
+              <Text style={styles.imgURL}>{userProfile.imgURL}</Text> // Ændret "imgURl" til "imgURL"
+              <Text style={styles.Race}>{userProfile.Race}</Text> // Tilføjet "Race"
             </>
           )}
 
@@ -107,25 +112,24 @@ const ProfileScreen = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f5f5f5', 
+    backgroundColor: '#f5f5f5',
   },
   profileInfo: {
     alignItems: 'center',
     padding: 16,
-    backgroundColor: 'white', 
+    backgroundColor: 'white',
     borderRadius: 10,
-    elevation: 4, 
+    elevation: 4,
   },
   profileImage: {
     width: 150,
     height: 150,
-    borderRadius: 75, 
+    borderRadius: 75,
     marginBottom: 16,
   },
   name: {
@@ -156,9 +160,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   saveButton: {
-    backgroundColor: 'orange', 
+    backgroundColor: 'orange',
     padding: 10,
-    borderRadius: 5, 
+    borderRadius: 5,
   },
 });
 

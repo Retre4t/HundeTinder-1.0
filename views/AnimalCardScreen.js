@@ -1,23 +1,23 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Layout, Text, Button } from 'react-native-rapi-ui';
 import firebase from 'firebase/compat/app';
 import NoMoreAnimals from '../views/NoMoreAnimals';
 import AnimalCard from '../views/AnimalCard';
-import { useNavigation } from '@react-navigation/native'; 
+import { useNavigation } from '@react-navigation/native';
 
+// Animalcardscreen komponentet håndterer visning af dyrekort og brugerinteraktion.
 const AnimalCardScreen = () => {
   const [animals, setAnimals] = useState([]);
   const [currentAnimalIndex, setCurrentAnimalIndex] = useState(0);
   const [userLike, setUserLike] = useState([]);
   const [userDisLike, setUserDisLike] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('All'); 
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
 
   useEffect(() => {
+    // Initialiser firebase, hvis det ikke allerede er gjort.
     if (!firebase.apps.length) {
       const firebaseConfig = {
         apiKey: "AIzaSyDqK3I6CeAIQydAhCjjWqbxD26pY5usAO8",
@@ -27,9 +27,9 @@ const AnimalCardScreen = () => {
         messagingSenderId: "503193003653",
         appId: "1:503193003653:web:7cf982e2bc482949996bec"
       };
-      
     }
 
+    // Hent dyr fra Firebase Firestore database baseret på den valgte kategori.
     const db = firebase.firestore();
     let query = db.collection('users');
 
@@ -67,6 +67,7 @@ const AnimalCardScreen = () => {
 
   const currentAnimal = animals[currentAnimalIndex];
 
+  // Åbn kategoriudvælgelse visning når indstillinger knappen trykkes.
   const openCategorySelect = () => {
     navigation.navigate('CategorySelect', {
       selectedCategory,
@@ -89,6 +90,7 @@ const AnimalCardScreen = () => {
   );
 };
 
+// Stilarter for animalcardscreen 
 const styles = StyleSheet.create({
   container: {
     flex: 1,

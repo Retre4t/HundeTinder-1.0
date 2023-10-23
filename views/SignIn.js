@@ -5,32 +5,35 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
-
 const SignInScreen = ({ navigation }) => {
+  // Opretter tilstande til e-mail og adgangskode
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Naviger til tilmeldingsskærmen
+  const navigateToSignUp = () => {
+    navigation.navigate('SignUpScreen');
+  };
 
-const navigateToSignUp = () => {
-  navigation.navigate('SignUpScreen');
-};
-
+  // Funktion til at håndtere brugerens login
   const handleSignIn = () => {
-    if (email && password) {
+    if (email && password) { // Kontrollerer om e-mail og adgangskode er udfyldt
+      // Log ind med brugerens e-mail og adgangskode
       firebase.auth()
         .signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
           const user = userCredential.user;
           console.log('User signed in:', user);
 
+          // Naviger til hovedskærmen efter vellykket login
           navigation.navigate('MainTabs');
         })
         .catch((error) => {
           console.error('Error signing in:', error);
-          alert('Sign-in failed. Please check your email and password.');
+          alert('Sign-in failed. Please check your email and password.'); // Vis en fejlmeddelelse ved loginfejl
         });
     } else {
-      alert('Please enter a valid email and password.');
+      alert('Please enter a valid email and password.'); // Vis en meddelelse vis der indtastes en gyldig e-mail og adgangskode
     }
   };
 
@@ -47,13 +50,12 @@ const navigateToSignUp = () => {
         <TextInput
           style={styles.input}
           placeholder="Password"
-          secureTextEntry
+          secureTextEntry // Skjul adgangskoden under indtastning
           value={password}
           onChangeText={setPassword}
         />
-        <Button title="Sign In" onPress={handleSignIn} />
-        <Button title="Sign Up" onPress={navigateToSignUp} />
-
+        <Button title="Sign In" onPress={handleSignIn} /> // Udfør login ved tryk på knappen
+        <Button title="Sign Up" onPress={navigateToSignUp} /> // Naviger til tilmeldingsskærmen ved tryk på knappen
       </View>
     </Layout>
   );
